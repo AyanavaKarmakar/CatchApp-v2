@@ -5,6 +5,7 @@ import { Input, Image, Button } from '@rneui/themed'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { NativeRootStackParamList } from '../App'
 import { auth } from '../Firebase.js'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 /**
  * @see https://reactnavigation.org/docs/typescript/#type-checking-screens
@@ -34,7 +35,15 @@ export const LoginScreen = (props: Props) => {
   }, [navigation])
 
   const handleSignIn = () => {
-    return
+    if (email !== undefined && password !== undefined) {
+      signInWithEmailAndPassword(auth, email, password).catch(
+        (error: { code: number; message: string }) => {
+          const errorCode = error.code
+          const errorMessage = error.message
+          alert(`${errorCode} + ${errorMessage}`)
+        },
+      )
+    }
   }
 
   const handleRegister = () => {
@@ -65,6 +74,7 @@ export const LoginScreen = (props: Props) => {
           value={password}
           onChangeText={(text) => setPassword(text)}
           secureTextEntry
+          onSubmitEditing={handleSignIn}
         />
       </View>
       <Button type='clear' containerStyle={styles.button} onPress={handleSignIn} title='Login' />
