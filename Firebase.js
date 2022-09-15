@@ -1,3 +1,8 @@
+/**
+ * ! Using `"firebase": "^9.6.11",` instead of `"firebase": "^9.9.4"`
+ * @see https://github.com/facebook/metro/issues/535
+ */
+
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
