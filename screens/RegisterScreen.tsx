@@ -2,8 +2,10 @@ import { useState, useLayoutEffect } from 'react'
 import { Input, Button, Text } from '@rneui/themed'
 import { StatusBar } from 'expo-status-bar'
 import { KeyboardAvoidingView, View, StyleSheet } from 'react-native'
-import { NativeRootStackParamList } from '../App'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { NativeRootStackParamList } from '../App'
+import { auth } from '../Firebase.js'
 
 /**
  * @see https://reactnavigation.org/docs/typescript/#type-checking-screens
@@ -16,6 +18,9 @@ export const RegisterScreen = (props: Props) => {
   const [email, setEmail] = useState<string>()
   const [imageUrl, setImageUrl] = useState<string>()
   const [newPassword, setNewPassword] = useState<string>()
+  const placeholderDisplayName = 'user0'
+  const placeholderImageUrl =
+    'https://ayanava-karmakar.imgix.net/https%3A%2F%2Fraw.githubusercontent.com%2FAyanavaKarmakar%2Fimgix-source-assets%2Fmain%2FsiteIcon.png?s=b56a16a7886aaf99f639de88c3fcdc0b'
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -28,7 +33,33 @@ export const RegisterScreen = (props: Props) => {
   }
 
   const handleSubmit = () => {
-    return
+    if (email !== undefined && newPassword !== undefined) {
+      createUserWithEmailAndPassword(auth, email, newPassword)
+        .then(() => {
+          // console.log('Signed In!')
+          // const user = userCredential.user
+        })
+        .catch((error: { code: number; message: string }) => {
+          const errorCode = error.code
+          const errorMessage = error.message
+          alert(`${errorCode} + ${errorMessage}`)
+        })
+
+      if (auth.currentUser !== null) {
+        updateProfile(auth.currentUser, {
+          displayName: name || placeholderDisplayName,
+          photoURL: imageUrl || placeholderImageUrl,
+        })
+          .then(() => {
+            console.log(auth.currentUser)
+          })
+          .catch((error: { code: number; message: string }) => {
+            const errorCode = error.code
+            const errorMessage = error.message
+            alert(`${errorCode} + ${errorMessage}`)
+          })
+      }
+    }
   }
 
   return (

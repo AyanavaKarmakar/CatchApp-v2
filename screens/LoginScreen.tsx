@@ -1,9 +1,10 @@
-import { useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState, useEffect } from 'react'
 import { View, StyleSheet, KeyboardAvoidingView, Dimensions } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import { Input, Image, Button } from '@rneui/themed'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { NativeRootStackParamList } from '../App'
+import { auth } from '../Firebase.js'
 
 /**
  * @see https://reactnavigation.org/docs/typescript/#type-checking-screens
@@ -14,6 +15,17 @@ export const LoginScreen = (props: Props) => {
   const { navigation } = props
   const [email, setEmail] = useState<string>()
   const [password, setPassword] = useState<string>()
+
+  useEffect(() => {
+    const unsubscribeUser = auth.onAuthStateChanged((authUser) => {
+      // console.log(authUser)
+      if (authUser !== null) {
+        navigation.replace('HOME')
+      }
+    })
+
+    return unsubscribeUser
+  }, [])
 
   useLayoutEffect(() => {
     navigation.setOptions({
