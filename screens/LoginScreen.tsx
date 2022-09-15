@@ -2,13 +2,25 @@ import { useState } from 'react'
 import { View, StyleSheet, KeyboardAvoidingView, Dimensions } from 'react-native'
 import { Input, Image, Button } from '@rneui/themed'
 import { StatusBar } from 'expo-status-bar'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { NativeRootStackParamList } from '../App'
 
-export const LoginScreen = () => {
+/**
+ * Refer = https://reactnavigation.org/docs/typescript/#type-checking-screens
+ */
+type Props = NativeStackScreenProps<NativeRootStackParamList, 'Login'>
+
+export const LoginScreen = (props: Props) => {
+  const { navigation } = props
   const [email, setEmail] = useState<string>()
   const [password, setPassword] = useState<string>()
 
   const handleSignIn = () => {
     return
+  }
+
+  const handleRegister = () => {
+    navigation.navigate('Register')
   }
 
   return (
@@ -36,13 +48,13 @@ export const LoginScreen = () => {
           secureTextEntry
         />
       </View>
+      <Button type='clear' containerStyle={styles.button} onPress={handleSignIn} title='Login' />
       <Button
-        color='secondary'
         containerStyle={styles.button}
-        onPress={handleSignIn}
-        title='Login'
+        title='Register'
+        type='outline'
+        onPress={handleRegister}
       />
-      <Button containerStyle={styles.button} title='Register' type='outline' />
       <View style={{ height: 50 }} />
     </KeyboardAvoidingView>
   )
