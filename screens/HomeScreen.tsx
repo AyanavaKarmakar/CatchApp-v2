@@ -16,7 +16,7 @@ export const HomeScreen = (props: Props) => {
   const { navigation } = props
 
   const handleAddChat = () => {
-    // navigation.navigate('ADDCHAT')
+    navigation.navigate('ADDCHAT')
   }
 
   const signOut = () => {
