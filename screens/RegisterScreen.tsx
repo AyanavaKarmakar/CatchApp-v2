@@ -38,27 +38,26 @@ export const RegisterScreen = (props: Props) => {
         .then(() => {
           // console.log('Signed In!')
           // const user = userCredential.user
+          if (auth.currentUser !== null) {
+            updateProfile(auth.currentUser, {
+              displayName: name || placeholderDisplayName,
+              photoURL: imageUrl || placeholderImageUrl,
+            })
+              .then(() => {
+                // console.log(auth.currentUser)
+              })
+              .catch((error: { code: number; message: string }) => {
+                const errorCode = error.code
+                const errorMessage = error.message
+                alert(`${errorCode} + ${errorMessage}`)
+              })
+          }
         })
         .catch((error: { code: number; message: string }) => {
           const errorCode = error.code
           const errorMessage = error.message
           alert(`${errorCode} + ${errorMessage}`)
         })
-
-      if (auth.currentUser !== null) {
-        updateProfile(auth.currentUser, {
-          displayName: name || placeholderDisplayName,
-          photoURL: imageUrl || placeholderImageUrl,
-        })
-          .then(() => {
-            console.log(auth.currentUser)
-          })
-          .catch((error: { code: number; message: string }) => {
-            const errorCode = error.code
-            const errorMessage = error.message
-            alert(`${errorCode} + ${errorMessage}`)
-          })
-      }
     }
   }
 
