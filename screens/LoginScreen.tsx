@@ -1,26 +1,32 @@
-import { useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { View, StyleSheet, KeyboardAvoidingView, Dimensions } from 'react-native'
-import { Input, Image, Button } from '@rneui/themed'
 import { StatusBar } from 'expo-status-bar'
+import { Input, Image, Button } from '@rneui/themed'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { NativeRootStackParamList } from '../App'
 
 /**
  * Refer = https://reactnavigation.org/docs/typescript/#type-checking-screens
  */
-type Props = NativeStackScreenProps<NativeRootStackParamList, 'Login'>
+type Props = NativeStackScreenProps<NativeRootStackParamList, 'LOGIN'>
 
 export const LoginScreen = (props: Props) => {
   const { navigation } = props
   const [email, setEmail] = useState<string>()
   const [password, setPassword] = useState<string>()
 
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitleAlign: 'center',
+    })
+  }, [navigation])
+
   const handleSignIn = () => {
     return
   }
 
   const handleRegister = () => {
-    navigation.navigate('Register')
+    navigation.navigate('REGISTER')
   }
 
   return (
@@ -34,13 +40,14 @@ export const LoginScreen = (props: Props) => {
       />
       <View style={styles.inputContainer}>
         <Input
+          inputStyle={{ color: '#E0FFFF' }}
           placeholder='Email'
           textContentType='emailAddress'
           value={email}
           onChangeText={(text) => setEmail(text)}
-          autoFocus
         />
         <Input
+          inputStyle={{ color: '#E0FFFF' }}
           placeholder='Password'
           textContentType='password'
           value={password}

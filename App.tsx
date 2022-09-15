@@ -6,8 +6,8 @@ import { LoginScreen, RegisterScreen } from './screens'
  * Refer = https://reactnavigation.org/docs/typescript/#type-checking-the-navigator
  */
 export type NativeRootStackParamList = {
-  Login: undefined
-  Register: undefined
+  LOGIN: undefined
+  REGISTER: undefined
 }
 
 /**
@@ -28,8 +28,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={globalScreenOptions}>
-        <Stack.Screen name='Login' component={LoginScreen} />
-        <Stack.Screen name='Register' component={RegisterScreen} />
+        <Stack.Screen name='LOGIN' component={LoginScreen} />
+        <Stack.Screen name='REGISTER' component={RegisterScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )
