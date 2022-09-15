@@ -6,7 +6,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { NativeRootStackParamList } from '../App'
 
 /**
- * Refer = https://reactnavigation.org/docs/typescript/#type-checking-screens
+ * @see https://reactnavigation.org/docs/typescript/#type-checking-screens
  */
 type Props = NativeStackScreenProps<NativeRootStackParamList, 'LOGIN'>
 

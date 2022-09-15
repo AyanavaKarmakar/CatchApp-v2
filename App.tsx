@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { LoginScreen, RegisterScreen } from './screens'
 
 /**
- * Refer = https://reactnavigation.org/docs/typescript/#type-checking-the-navigator
+ * @see https://reactnavigation.org/docs/typescript/#type-checking-the-navigator
  */
 export type NativeRootStackParamList = {
   LOGIN: undefined
@@ -11,7 +11,7 @@ export type NativeRootStackParamList = {
 }
 
 /**
- * Refer = https://reactnavigation.org/docs/hello-react-navigation#creating-a-native-stack-navigator
+ * @see https://reactnavigation.org/docs/hello-react-navigation#creating-a-native-stack-navigator
  */
 const Stack = createNativeStackNavigator<NativeRootStackParamList>()
 
@@ -22,7 +22,7 @@ const globalScreenOptions = {
 }
 
 /**
- * Refer = https://reactnavigation.org/docs/getting-started/#wrapping-your-app-in-navigationcontainer
+ * @see https://reactnavigation.org/docs/getting-started/#wrapping-your-app-in-navigationcontainer
  */
 export default function App() {
   return (
