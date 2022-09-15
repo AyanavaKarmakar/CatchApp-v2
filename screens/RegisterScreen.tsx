@@ -84,7 +84,7 @@ export const RegisterScreen = (props: Props) => {
         />
         <Input
           inputStyle={{ color: '#E0FFFF' }}
-          placeholder='Profile Picture URL'
+          placeholder='(OPTIONAL) Profile Picture URL'
           textContentType='URL'
           value={imageUrl}
           onChangeText={(text) => setImageUrl(text)}
