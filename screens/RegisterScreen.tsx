@@ -11,11 +11,11 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 type Props = NativeStackScreenProps<NativeRootStackParamList, 'REGISTER'>
 
 export const RegisterScreen = (props: Props) => {
+  const { navigation } = props
   const [name, setName] = useState<string>()
   const [email, setEmail] = useState<string>()
   const [imageUrl, setImageUrl] = useState<string>()
   const [newPassword, setNewPassword] = useState<string>()
-  const { navigation } = props
 
   useLayoutEffect(() => {
     navigation.setOptions({
