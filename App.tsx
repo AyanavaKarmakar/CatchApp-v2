@@ -8,7 +8,7 @@ import { LoginScreen } from './screens'
 const Stack = createNativeStackNavigator()
 
 const globalScreenOptions = {
-  headerStyle: { backgroundColor: '#2C6BEF' },
+  headerStyle: { backgroundColor: 'secondary' },
   headerTitleStyle: { color: 'white' },
   headerTintColor: 'white',
 }
