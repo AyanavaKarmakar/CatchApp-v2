@@ -2,7 +2,7 @@ import { useLayoutEffect, useState } from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { View, StyleSheet } from 'react-native'
 import { NativeRootStackParamList } from '../App'
-import { Button, Icon, Input } from '@rneui/themed'
+import { Button, Input } from '@rneui/themed'
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from '../Firebase'
 /**
@@ -51,7 +51,6 @@ export const AddChatScreen = (props: Props) => {
         inputStyle={{ color: '#E0FFFF', textAlign: 'center' }}
         placeholder='Enter a new chat name...'
         onChangeText={(text) => setInput(text)}
-        leftIcon={<Icon name='wechat' type='antdesign' size={24} color='#E0FFFF' />}
       />
       <Button type='outline' onPress={handleCreateChat} title='Create new chat' />
     </View>
