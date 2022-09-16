@@ -54,7 +54,7 @@ export const HomeScreen = (props: Props) => {
       headerTitleAlign: 'center',
       headerLeft: () => (
         <View>
-          <TouchableOpacity activeOpacity={0.5} onPress={signOut}>
+          <TouchableOpacity activeOpacity={0.5} onPress={signOut} style={{ marginLeft: 6 }}>
             <Avatar rounded source={{ uri: auth?.currentUser?.photoURL } as ImageSourcePropType} />
           </TouchableOpacity>
           <Text style={{ color: '#E0FFFF', fontSize: 12 }}>Log Out</Text>
@@ -76,14 +76,12 @@ export const HomeScreen = (props: Props) => {
   useEffect(() => {
     const q = query(collection(db, 'chats'))
     const unSubscribe = onSnapshot(q, (querySnapshot) => {
-      querySnapshot.docs.map((doc) => {
-        setChats([
-          {
-            id: doc.id as string,
-            chatName: doc.data().chatName as string,
-          },
-        ])
-      })
+      setChats(
+        querySnapshot.docs.map((doc) => ({
+          id: doc.id as string,
+          chatName: doc.data().chatName as string,
+        })),
+      )
     })
 
     console.log(chats)
@@ -94,10 +92,9 @@ export const HomeScreen = (props: Props) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        {/*
-        chats !== undefined &&
-          chats?.map((chat: Chats) => <CustomListItem id={chat.id} chatName={chat.chatName} />)
-  */}
+        {chats?.map((chat: Chats) => (
+          <CustomListItem key={chat.id} id={chat.id} chatName={chat.chatName} />
+        ))}
       </ScrollView>
     </SafeAreaView>
   )
