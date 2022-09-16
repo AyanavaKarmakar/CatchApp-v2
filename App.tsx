@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { AddChatScreen, HomeScreen, LoginScreen, RegisterScreen } from './screens'
+import { AddChatScreen, ChatScreen, HomeScreen, LoginScreen, RegisterScreen } from './screens'
 
 /**
  * @see https://reactnavigation.org/docs/typescript/#type-checking-the-navigator
@@ -10,6 +10,7 @@ export type NativeRootStackParamList = {
   REGISTER: undefined
   HOME: undefined
   ADDCHAT: undefined
+  CHAT: undefined
 }
 
 /**
@@ -34,6 +35,7 @@ export default function App() {
         <Stack.Screen name='REGISTER' component={RegisterScreen} />
         <Stack.Screen name='HOME' component={HomeScreen} />
         <Stack.Screen name='ADDCHAT' component={AddChatScreen} />
+        <Stack.Screen name='CHAT' component={ChatScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )
