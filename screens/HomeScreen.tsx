@@ -1,27 +1,34 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
-import { ImageSourcePropType, SafeAreaView, ScrollView, TouchableOpacity, View } from 'react-native'
+import {
+  ImageSourcePropType,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+  View,
+  Text,
+} from 'react-native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { AntDesign, SimpleLineIcons } from '@expo/vector-icons'
+import { SimpleLineIcons } from '@expo/vector-icons'
 import { NativeRootStackParamList } from '../App'
-import { CustomListItem } from '../components'
 import { Avatar } from '@rneui/themed'
 import { auth, db } from '../Firebase'
-import { doc, DocumentData, onSnapshot } from 'firebase/firestore'
+import { collection, onSnapshot, query } from 'firebase/firestore'
+import { CustomListItem } from '../components'
 
 /**
  * @see https://reactnavigation.org/docs/typescript/#type-checking-screens
  */
 type Props = NativeStackScreenProps<NativeRootStackParamList, 'HOME'>
 
-interface Snapshot {
+interface Chats {
   id: string
-  data: DocumentData
+  chatName: string
 }
 
 export const HomeScreen = (props: Props) => {
   const { navigation } = props
 
-  const [chats, setChats] = useState<Snapshot[]>()
+  const [chats, setChats] = useState<Chats[]>()
 
   const handleAddChat = () => {
     navigation.navigate('ADDCHAT')
@@ -50,19 +57,11 @@ export const HomeScreen = (props: Props) => {
           <TouchableOpacity activeOpacity={0.5} onPress={signOut}>
             <Avatar rounded source={{ uri: auth?.currentUser?.photoURL } as ImageSourcePropType} />
           </TouchableOpacity>
+          <Text style={{ color: '#E0FFFF', fontSize: 12 }}>Log Out</Text>
         </View>
       ),
       headerRight: () => (
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            width: 70,
-          }}
-        >
-          <TouchableOpacity activeOpacity={0.5}>
-            <AntDesign name='camerao' size={26} color='#E0FFFF' />
-          </TouchableOpacity>
+        <View>
           <TouchableOpacity activeOpacity={0.5}>
             <SimpleLineIcons name='plus' size={26} onPress={handleAddChat} color='#E0FFFF' />
           </TouchableOpacity>
@@ -72,26 +71,33 @@ export const HomeScreen = (props: Props) => {
   }, [navigation])
 
   /**
-   * @see https://firebase.google.com/docs/firestore/query-data/listen
+   * @see https://firebase.google.com/docs/firestore/query-data/listen#listen_to_multiple_documents_in_a_collection
    */
   useEffect(() => {
-    const unsubscribe = onSnapshot(doc(db, 'chats'), (doc) => {
-      setChats([
-        ...(chats || []),
-        {
-          id: doc.id,
-          data: doc.data,
-        },
-      ])
+    const q = query(collection(db, 'chats'))
+    const unSubscribe = onSnapshot(q, (querySnapshot) => {
+      querySnapshot.docs.map((doc) => {
+        setChats([
+          {
+            id: doc.id as string,
+            chatName: doc.data().chatName as string,
+          },
+        ])
+      })
     })
 
-    return unsubscribe
+    console.log(chats)
+
+    return unSubscribe
   }, [])
 
   return (
     <SafeAreaView>
       <ScrollView>
-        <CustomListItem />
+        {/*
+        chats !== undefined &&
+          chats?.map((chat: Chats) => <CustomListItem id={chat.id} chatName={chat.chatName} />)
+  */}
       </ScrollView>
     </SafeAreaView>
   )
