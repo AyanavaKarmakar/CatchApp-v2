@@ -3,7 +3,8 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { View, StyleSheet } from 'react-native'
 import { NativeRootStackParamList } from '../App'
 import { Button, Icon, Input } from '@rneui/themed'
-import { collection } from '@firebase/firestore'
+import { collection, addDoc } from 'firebase/firestore'
+import { db } from '../Firebase'
 /**
  * @see https://reactnavigation.org/docs/typescript/#type-checking-screens
  */
@@ -25,11 +26,14 @@ export const AddChatScreen = (props: Props) => {
     })
   }, [navigation])
 
+  /**
+   * @see https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
+   * @see https://console.firebase.google.com/u/2/project/signal-clone-af25b/firestore/rules
+   */
   const handleCreateChat = async () => {
-    await collection('chats')
-      .add({
-        chatName: input,
-      })
+    await addDoc(collection(db, 'chats'), {
+      chatName: input,
+    })
       .then(() => {
         navigation.goBack()
       })
