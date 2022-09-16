@@ -1,3 +1,9 @@
+import { View, Text } from 'react-native'
+
 export const ChatScreen = () => {
-  return <></>
+  return (
+    <View>
+      <Text>Chat Screen</Text>
+    </View>
+  )
 }

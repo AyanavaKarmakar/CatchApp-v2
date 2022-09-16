@@ -10,7 +10,10 @@ export type NativeRootStackParamList = {
   REGISTER: undefined
   HOME: undefined
   ADDCHAT: undefined
-  CHAT: undefined
+  CHAT: {
+    id: string
+    chatName: string
+  }
 }
 
 /**

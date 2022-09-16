@@ -86,11 +86,23 @@ export const HomeScreen = (props: Props) => {
     return unSubscribe
   }, [])
 
+  const onEnterChat = (id: string, chatName: string) => {
+    navigation.navigate('CHAT', {
+      id: id,
+      chatName: chatName,
+    })
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         {chats?.map((chat: Chats) => (
-          <CustomListItem key={chat.id} id={chat.id} chatName={chat.chatName} />
+          <CustomListItem
+            key={chat.id}
+            id={chat.id}
+            chatName={chat.chatName}
+            onEnterChat={onEnterChat}
+          />
         ))}
       </ScrollView>
     </SafeAreaView>
