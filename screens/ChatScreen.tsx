@@ -15,6 +15,8 @@ import {
 import { NativeRootStackParamList } from '../App'
 import { StatusBar } from 'expo-status-bar'
 import { Ionicons } from '@expo/vector-icons'
+import { setDoc, doc } from 'firebase/firestore'
+import { db } from '../Firebase'
 
 /**
  * @see https://reactnavigation.org/docs/typescript/#type-checking-screens
@@ -23,7 +25,7 @@ type Props = NativeStackScreenProps<NativeRootStackParamList, 'CHAT'>
 
 export const ChatScreen = (props: Props) => {
   const { navigation, route } = props
-  const { chatName } = route.params
+  const { chatName, id } = route.params
 
   const [input, setInput] = useState<string>()
 
@@ -39,8 +41,19 @@ export const ChatScreen = (props: Props) => {
     })
   }, [navigation])
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     Keyboard.dismiss()
+
+    // ! NOT WORKING
+    await setDoc(doc(db, 'chats', id), {
+      message: input,
+    }).catch((error: { code: number; message: string }) => {
+      const errorCode = error.code
+      const errorMessage = error.message
+      alert(`${errorCode} + ${errorMessage}`)
+    })
+
+    setInput('')
   }
 
   return (
@@ -58,6 +71,7 @@ export const ChatScreen = (props: Props) => {
               <TextInput
                 placeholder={`[${chatName}] Start Typing... `}
                 onChangeText={(text) => setInput(text)}
+                onSubmitEditing={sendMessage}
                 value={input}
                 style={styles.textInput}
               />
