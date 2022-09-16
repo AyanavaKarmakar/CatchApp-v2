@@ -5,7 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   View,
-  Text,
+  StyleSheet,
 } from 'react-native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { SimpleLineIcons } from '@expo/vector-icons'
@@ -54,10 +54,9 @@ export const HomeScreen = (props: Props) => {
       headerTitleAlign: 'center',
       headerLeft: () => (
         <View>
-          <TouchableOpacity activeOpacity={0.5} onPress={signOut} style={{ marginLeft: 6 }}>
+          <TouchableOpacity activeOpacity={0.5} onPress={signOut}>
             <Avatar rounded source={{ uri: auth?.currentUser?.photoURL } as ImageSourcePropType} />
           </TouchableOpacity>
-          <Text style={{ color: '#E0FFFF', fontSize: 12 }}>Log Out</Text>
         </View>
       ),
       headerRight: () => (
@@ -88,7 +87,7 @@ export const HomeScreen = (props: Props) => {
   }, [])
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <ScrollView>
         {chats?.map((chat: Chats) => (
           <CustomListItem key={chat.id} id={chat.id} chatName={chat.chatName} />
@@ -97,3 +96,9 @@ export const HomeScreen = (props: Props) => {
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    height: '100%',
+  },
+})
