@@ -84,8 +84,6 @@ export const HomeScreen = (props: Props) => {
       )
     })
 
-    console.log(chats)
-
     return unSubscribe
   }, [])
 
