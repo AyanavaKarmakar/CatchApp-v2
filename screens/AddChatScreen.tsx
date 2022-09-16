@@ -48,8 +48,8 @@ export const AddChatScreen = (props: Props) => {
   return (
     <View style={styles.container}>
       <Input
-        inputStyle={{ color: '#E0FFFF' }}
-        placeholder='Enter a new chat name'
+        inputStyle={{ color: '#E0FFFF', textAlign: 'center' }}
+        placeholder='Enter a new chat name...'
         onChangeText={(text) => setInput(text)}
         leftIcon={<Icon name='wechat' type='antdesign' size={24} color='#E0FFFF' />}
       />
