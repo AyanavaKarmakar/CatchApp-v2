@@ -12,6 +12,7 @@ type Props = NativeStackScreenProps<NativeRootStackParamList, 'ADDCHAT'>
 
 export const AddChatScreen = (props: Props) => {
   const { navigation } = props
+
   const [input, setInput] = useState<string>()
 
   /**

@@ -14,6 +14,7 @@ type Props = NativeStackScreenProps<NativeRootStackParamList, 'LOGIN'>
 
 export const LoginScreen = (props: Props) => {
   const { navigation } = props
+
   const [email, setEmail] = useState<string>()
   const [password, setPassword] = useState<string>()
 

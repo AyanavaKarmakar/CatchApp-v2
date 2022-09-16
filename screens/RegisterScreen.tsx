@@ -14,10 +14,12 @@ type Props = NativeStackScreenProps<NativeRootStackParamList, 'REGISTER'>
 
 export const RegisterScreen = (props: Props) => {
   const { navigation } = props
+
   const [name, setName] = useState<string>()
   const [email, setEmail] = useState<string>()
   const [imageUrl, setImageUrl] = useState<string>()
   const [newPassword, setNewPassword] = useState<string>()
+
   const placeholderDisplayName = 'user0'
   const placeholderImageUrl =
     'https://ayanava-karmakar.imgix.net/https%3A%2F%2Fraw.githubusercontent.com%2FAyanavaKarmakar%2Fimgix-source-assets%2Fmain%2FsiteIcon.png?s=b56a16a7886aaf99f639de88c3fcdc0b'
