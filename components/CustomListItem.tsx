@@ -10,7 +10,7 @@ export const CustomListItem = (props: Props) => {
   const { id, chatName, onEnterChat } = props
 
   const placeholderAvatar =
-    'https://ayanava-karmakar.imgix.net/https%3A%2F%2Fraw.githubusercontent.com%2FAyanavaKarmakar%2Fimgix-source-assets%2Fmain%2FsiteIcon.png?s=b56a16a7886aaf99f639de88c3fcdc0b'
+    'https://user-images.githubusercontent.com/89210438/190708630-526de943-f158-4f24-809b-279c58ea70fe.png'
 
   return (
     <ListItem onPress={() => onEnterChat(id, chatName)} key={id} bottomDivider>
