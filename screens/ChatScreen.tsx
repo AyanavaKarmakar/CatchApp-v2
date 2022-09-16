@@ -15,7 +15,7 @@ import {
 import { NativeRootStackParamList } from '../App'
 import { StatusBar } from 'expo-status-bar'
 import { Ionicons } from '@expo/vector-icons'
-import { setDoc, doc } from 'firebase/firestore'
+import { setDoc, doc, collection } from 'firebase/firestore'
 import { db } from '../Firebase'
 
 /**
@@ -41,9 +41,17 @@ export const ChatScreen = (props: Props) => {
     })
   }, [navigation])
 
+  /**
+   * @see https://firebase.google.com/docs/firestore/manage-data/add-data
+   */
   const sendMessage = async () => {
     Keyboard.dismiss()
 
+    /**
+     * @see https://stackoverflow.com/a/70247675/18893631
+     */
+
+    /*
     // ! NOT WORKING
     await setDoc(doc(db, 'chats', id), {
       message: input,
@@ -52,6 +60,7 @@ export const ChatScreen = (props: Props) => {
       const errorMessage = error.message
       alert(`${errorCode} + ${errorMessage}`)
     })
+    */
 
     setInput('')
   }
