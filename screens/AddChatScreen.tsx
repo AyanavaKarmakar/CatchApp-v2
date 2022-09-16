@@ -13,6 +13,9 @@ export const AddChatScreen = (props: Props) => {
   const { navigation } = props
   const [input, setInput] = useState<string>()
 
+  /**
+   * @see https://reactnavigation.org/docs/navigation-prop#setoptions
+   */
   useLayoutEffect(() => {
     navigation.setOptions({
       title: 'ADD NEW CHAT',

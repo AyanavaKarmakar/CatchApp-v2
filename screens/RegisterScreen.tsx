@@ -22,6 +22,9 @@ export const RegisterScreen = (props: Props) => {
   const placeholderImageUrl =
     'https://ayanava-karmakar.imgix.net/https%3A%2F%2Fraw.githubusercontent.com%2FAyanavaKarmakar%2Fimgix-source-assets%2Fmain%2FsiteIcon.png?s=b56a16a7886aaf99f639de88c3fcdc0b'
 
+  /**
+   * @see https://reactnavigation.org/docs/navigation-prop#setoptions
+   */
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitleAlign: 'center',
@@ -34,11 +37,17 @@ export const RegisterScreen = (props: Props) => {
 
   const handleSubmit = () => {
     if (email !== undefined && newPassword !== undefined) {
+      /**
+       * @seee https://firebase.google.com/docs/auth/web/password-auth#create_a_password-based_account
+       */
       createUserWithEmailAndPassword(auth, email, newPassword)
         .then(() => {
           // console.log('Signed In!')
           // const user = userCredential.user
           if (auth.currentUser !== null) {
+            /**
+             * @see https://firebase.google.com/docs/auth/web/manage-users#update_a_users_profile
+             */
             updateProfile(auth.currentUser, {
               displayName: name || placeholderDisplayName,
               photoURL: imageUrl || placeholderImageUrl,

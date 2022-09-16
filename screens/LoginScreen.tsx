@@ -18,6 +18,9 @@ export const LoginScreen = (props: Props) => {
   const [password, setPassword] = useState<string>()
 
   useEffect(() => {
+    /**
+     * @see https://firebase.google.com/docs/auth/web/manage-users#get_the_currently_signed-in_user
+     */
     const unsubscribeUser = auth.onAuthStateChanged((authUser) => {
       // console.log(authUser)
       if (authUser !== null) {
@@ -28,12 +31,18 @@ export const LoginScreen = (props: Props) => {
     return unsubscribeUser
   }, [])
 
+  /**
+   * @see https://reactnavigation.org/docs/navigation-prop#setoptions
+   */
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitleAlign: 'center',
     })
   }, [navigation])
 
+  /**
+   * @see https://firebase.google.com/docs/auth/web/password-auth#sign_in_a_user_with_an_email_address_and_password
+   */
   const handleSignIn = () => {
     if (email !== undefined && password !== undefined) {
       signInWithEmailAndPassword(auth, email, password).catch(
