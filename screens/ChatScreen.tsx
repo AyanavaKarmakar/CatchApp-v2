@@ -9,6 +9,8 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native'
 import { NativeRootStackParamList } from '../App'
 import { StatusBar } from 'expo-status-bar'
@@ -38,7 +40,7 @@ export const ChatScreen = (props: Props) => {
   }, [navigation])
 
   const sendMessage = () => {
-    return
+    Keyboard.dismiss()
   }
 
   return (
@@ -49,20 +51,22 @@ export const ChatScreen = (props: Props) => {
         style={styles.viewContainer}
         keyboardVerticalOffset={135}
       >
-        <>
-          <ScrollView>{/* Chat goes here */}</ScrollView>
-          <View style={styles.footer}>
-            <TextInput
-              placeholder={`[${chatName}] Start Typing... `}
-              onChangeText={(text) => setInput(text)}
-              value={input}
-              style={styles.textInput}
-            />
-            <TouchableOpacity activeOpacity={0.5} onPress={sendMessage}>
-              <Ionicons name='send' size={24} color='black' />
-            </TouchableOpacity>
-          </View>
-        </>
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <>
+            <ScrollView>{/* Chat goes here */}</ScrollView>
+            <View style={styles.footer}>
+              <TextInput
+                placeholder={`[${chatName}] Start Typing... `}
+                onChangeText={(text) => setInput(text)}
+                value={input}
+                style={styles.textInput}
+              />
+              <TouchableOpacity activeOpacity={0.5} onPress={sendMessage}>
+                <Ionicons name='send' size={24} color='black' />
+              </TouchableOpacity>
+            </View>
+          </>
+        </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </SafeAreaView>
   )
@@ -87,9 +91,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: '90%',
     marginRight: 15,
-    borderColor: 'transparent',
     backgroundColor: '#ECECEC',
-    borderWidth: 1,
     padding: 10,
     color: 'grey',
     borderRadius: 30,
