@@ -5,7 +5,9 @@ import {
   ScrollView,
   TouchableOpacity,
   View,
+  Text,
   StyleSheet,
+  Linking,
 } from 'react-native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { SimpleLineIcons } from '@expo/vector-icons'
@@ -105,6 +107,21 @@ export const HomeScreen = (props: Props) => {
           />
         ))}
       </ScrollView>
+      <Text style={{ ...styles.footer, color: 'hotpink' }}>
+        Currently logged in as [ [ {auth.currentUser?.displayName} ] [{' '}
+        {new Date().toLocaleDateString()} ] ]
+      </Text>
+      <Text style={styles.footer}>
+        Made with ❤ by
+        <Text
+          onPress={() => Linking.openURL('https://github.com/AyanavaKarmakar')}
+          style={{ color: 'cyan' }}
+        >
+          {' '}
+          &lt;Ayanava Karmakar&gt;
+        </Text>{' '}
+        &copy; 2022
+      </Text>
     </SafeAreaView>
   )
 }
@@ -115,5 +132,12 @@ const styles = StyleSheet.create({
   },
   containerBackground: {
     backgroundColor: '#1F2022',
+  },
+  footer: {
+    textAlign: 'center',
+    backgroundColor: '#000000',
+    color: '#E0FFFF',
+    paddingBottom: 5,
+    paddingTop: 5,
   },
 })
