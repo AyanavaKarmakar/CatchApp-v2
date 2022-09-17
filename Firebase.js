@@ -20,7 +20,12 @@ const firebaseConfig = {
 }
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig)
+try {
+  var app = initializeApp(firebaseConfig)
+} catch (error) {
+  alert(error.message)
+}
+
 const auth = getAuth(app)
 const db = getFirestore(app)
 
