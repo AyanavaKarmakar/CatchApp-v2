@@ -15,8 +15,8 @@ import {
 import { NativeRootStackParamList } from '../App'
 import { StatusBar } from 'expo-status-bar'
 import { Ionicons } from '@expo/vector-icons'
-import { setDoc, doc, collection } from 'firebase/firestore'
-import { db } from '../Firebase'
+import { doc, collection, addDoc, serverTimestamp } from 'firebase/firestore'
+import { auth, db } from '../Firebase'
 
 /**
  * @see https://reactnavigation.org/docs/typescript/#type-checking-screens
@@ -28,6 +28,7 @@ export const ChatScreen = (props: Props) => {
   const { chatName, id } = route.params
 
   const [input, setInput] = useState<string>()
+  // const [messages, setMessages] = useState([])
 
   /**
    * @see https://reactnavigation.org/docs/navigation-prop#setoptions
@@ -41,29 +42,52 @@ export const ChatScreen = (props: Props) => {
     })
   }, [navigation])
 
-  /**
-   * @see https://firebase.google.com/docs/firestore/manage-data/add-data
-   */
   const sendMessage = async () => {
+    /**
+     * Removes keyboard
+     */
     Keyboard.dismiss()
 
     /**
-     * @see https://stackoverflow.com/a/70247675/18893631
+     * @see https://firebase.google.com/docs/firestore/manage-data/add-data
+     * @see https://stackoverflow.com/a/70551419/18893631
      */
-
-    /*
-    // ! NOT WORKING
-    await setDoc(doc(db, 'chats', id), {
+    const docRef = doc(db, 'chats', id)
+    const colRef = collection(docRef, 'messages')
+    addDoc(colRef, {
+      timestamp: serverTimestamp(),
       message: input,
+      displayName: auth.currentUser?.displayName,
+      email: auth.currentUser?.email,
+      photoURl: auth.currentUser?.photoURL,
     }).catch((error: { code: number; message: string }) => {
       const errorCode = error.code
       const errorMessage = error.message
       alert(`${errorCode} + ${errorMessage}`)
     })
-    */
 
+    /**
+     * Resets input field
+     */
     setInput('')
   }
+
+  // useLayoutEffect(() => {
+  //   const unSubscribe = collection(db, 'chats')
+  //     .doc(id)
+  //     .collection('messages')
+  //     .orderBy('timestamp', 'desc')
+  //     .onSnapshot((snapshot) => {
+  //       setMessages({
+  //         snapshot.docs.map((doc)=>({
+  //           id: doc.id,
+  //           data: doc.data()
+  //         }))
+  //       })
+  //     })
+
+  //   return unSubscribe
+  // }, [route])
 
   return (
     <SafeAreaView style={styles.container}>
