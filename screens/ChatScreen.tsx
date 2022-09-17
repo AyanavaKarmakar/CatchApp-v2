@@ -54,7 +54,7 @@ export const ChatScreen = (props: Props) => {
      */
     const docRef = doc(db, 'chats', id)
     const colRef = collection(docRef, 'messages')
-    addDoc(colRef, {
+    await addDoc(colRef, {
       timestamp: serverTimestamp(),
       message: input,
       displayName: auth.currentUser?.displayName,
@@ -71,6 +71,10 @@ export const ChatScreen = (props: Props) => {
      */
     setInput('')
   }
+
+  /**
+   * @see https://firebase.google.com/docs/firestore/query-data/order-limit-data
+   */
 
   // useLayoutEffect(() => {
   //   const unSubscribe = collection(db, 'chats')
