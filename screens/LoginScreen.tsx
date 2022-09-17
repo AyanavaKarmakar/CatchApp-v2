@@ -1,5 +1,5 @@
 import { useLayoutEffect, useState, useEffect } from 'react'
-import { View, StyleSheet, KeyboardAvoidingView, Dimensions } from 'react-native'
+import { View, StyleSheet, KeyboardAvoidingView, Dimensions, Text, Linking } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import { Input, Image, Button } from '@rneui/themed'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
@@ -94,7 +94,18 @@ export const LoginScreen = (props: Props) => {
         type='outline'
         onPress={handleRegister}
       />
-      <View style={{ height: 50 }} />
+      <View style={{ height: 80 }} />
+      <Text style={styles.footer}>
+        Made with ❤ by
+        <Text
+          onPress={() => Linking.openURL('https://github.com/AyanavaKarmakar')}
+          style={{ color: 'cyan' }}
+        >
+          {' '}
+          &lt;Ayanava Karmakar&gt;
+        </Text>{' '}
+        &copy; 2022
+      </Text>
     </KeyboardAvoidingView>
   )
 }
@@ -118,5 +129,10 @@ const styles = StyleSheet.create({
   button: {
     width: 300,
     marginTop: 10,
+  },
+  footer: {
+    textAlign: 'center',
+    backgroundColor: '#1F2022',
+    color: '#E0FFFF',
   },
 })
