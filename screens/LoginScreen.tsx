@@ -65,7 +65,7 @@ export const LoginScreen = (props: Props) => {
       <StatusBar style='light' />
       <Image
         source={{
-          uri: 'https://user-images.githubusercontent.com/89210438/190361956-afa02c63-e1a0-424e-9a1d-8c10125126be.png',
+          uri: 'https://user-images.githubusercontent.com/89210438/190860429-2aa422af-ee72-4b66-884e-ad1102fda01b.png',
         }}
         style={styles.imageStyles}
       />
@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#1F2022',
   },
   imageStyles: {
-    width: 400,
-    height: 400,
+    width: 300,
+    height: 300,
   },
   inputContainer: {
     width: 300,
