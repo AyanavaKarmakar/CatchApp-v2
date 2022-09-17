@@ -132,7 +132,7 @@ export const ChatScreen = (props: Props) => {
                     <Text style={styles.receiverText}>{message.data.message}</Text>
                   </View>
                 ) : (
-                  <View style={styles.sender}>
+                  <View key={message.id} style={styles.sender}>
                     <Avatar
                       rounded
                       containerStyle={styles.senderAvatar}
