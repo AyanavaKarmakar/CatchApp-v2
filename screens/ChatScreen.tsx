@@ -141,7 +141,7 @@ export const ChatScreen = (props: Props) => {
                     />
                     <Text style={styles.senderText}>{message.data.message}</Text>
                     <Text style={styles.senderName}>
-                      {message.data.displayName} |{' '}
+                      <Text style={{ color: 'cyan' }}>{message.data.displayName}</Text> |{' '}
                       {message.data.timestamp
                         .toDate()
                         .toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })}
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
   },
   receiver: {
     padding: 15,
-    backgroundColor: '#00f4f4',
+    backgroundColor: 'lightgrey',
     alignSelf: 'flex-end',
     borderRadius: 20,
     marginRight: 15,
