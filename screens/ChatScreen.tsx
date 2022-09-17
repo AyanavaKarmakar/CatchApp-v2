@@ -56,7 +56,7 @@ export const ChatScreen = (props: Props) => {
       headerTitleStyle: { color: '#E0FFFF' },
       headerTitleAlign: 'center',
     })
-  }, [navigation])
+  }, [navigation, chatName])
 
   const sendMessage = async () => {
     if (input !== '') {
