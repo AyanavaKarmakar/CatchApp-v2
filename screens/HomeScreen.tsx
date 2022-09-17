@@ -95,7 +95,7 @@ export const HomeScreen = (props: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView style={styles.containerBackground}>
         {chats?.map((chat: Chats) => (
           <CustomListItem
             key={chat.id}
@@ -112,5 +112,8 @@ export const HomeScreen = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
+  },
+  containerBackground: {
+    backgroundColor: '#1F2022',
   },
 })
