@@ -49,10 +49,10 @@ export const AddChatScreen = (props: Props) => {
     <View style={styles.container}>
       <Input
         inputStyle={{ color: '#E0FFFF', textAlign: 'center' }}
-        placeholder='Enter a new chat name...'
+        placeholder='Enter a new group chat name...'
         onChangeText={(text) => setInput(text)}
       />
-      <Button type='outline' onPress={handleCreateChat} title='Create new chat' />
+      <Button disabled={!input} type='outline' onPress={handleCreateChat} title='Create new chat' />
     </View>
   )
 }

@@ -1,5 +1,8 @@
 import { ListItem, Avatar } from '@rneui/themed'
+import { collection, doc, DocumentData, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { useState, useEffect } from 'react'
 import { StyleSheet } from 'react-native'
+import { db } from '../Firebase'
 
 interface Props {
   id: string
@@ -10,21 +13,37 @@ interface Props {
 export const CustomListItem = (props: Props) => {
   const { id, chatName, onEnterChat } = props
 
+  const [chatMessages, setChatMessages] = useState<DocumentData[]>()
+
   const placeholderAvatar =
     'https://user-images.githubusercontent.com/89210438/190708630-526de943-f158-4f24-809b-279c58ea70fe.png'
 
+  useEffect(() => {
+    const docRef = doc(db, 'chats', id)
+    const colRef = collection(docRef, 'messages')
+    const q = query(colRef, orderBy('timestamp', 'desc'))
+    const unSubscribe = onSnapshot(q, (querySnapshot) => {
+      setChatMessages(querySnapshot.docs.map((doc) => doc.data()))
+    })
+
+    return unSubscribe
+  }, [])
+
   return (
-    <ListItem containerStyle={styles.container} onPress={() => onEnterChat(id, chatName)} key={id}>
+    <ListItem key={id} containerStyle={styles.container} onPress={() => onEnterChat(id, chatName)}>
       <Avatar
         rounded
         source={{
-          uri: placeholderAvatar,
+          uri: chatMessages?.[0]?.photoURL || placeholderAvatar,
         }}
       />
       <ListItem.Content>
         <ListItem.Title style={styles.title}>{chatName}</ListItem.Title>
         <ListItem.Subtitle style={styles.subtitle} numberOfLines={1} ellipsizeMode='tail'>
-          This is the chat for admins
+          {chatMessages?.[0]?.displayName}
+          {chatMessages?.[0]?.message !== undefined && ': '}
+          {chatMessages?.[0]?.message === undefined && 'No new messages to display...'}
+          {chatMessages?.[0]?.message}
         </ListItem.Subtitle>
       </ListItem.Content>
     </ListItem>
