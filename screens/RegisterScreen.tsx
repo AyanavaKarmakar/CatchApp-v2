@@ -75,8 +75,22 @@ export const RegisterScreen = (props: Props) => {
   return (
     <KeyboardAvoidingView behavior='padding' style={styles.container}>
       <StatusBar style='light' />
-      <Text h1 style={{ textAlign: 'center', width: 300, color: '#E0FFFF', marginBottom: 50 }}>
+      <Text h1 style={{ marginBottom: 30, textAlign: 'center', width: 300, color: '#E0FFFF' }}>
         REGISTER ACCOUNT
+      </Text>
+      <Text
+        style={{
+          fontSize: 15,
+          textAlign: 'center',
+          width: 350,
+          color: 'skyblue',
+          marginBottom: 20,
+        }}
+      >
+        {`/// Hint: Upload the image on any
+GitHub markdown file, grab the image
+link, and paste the generated link in
+the profile URL input field. ///`}
       </Text>
       <View style={styles.inputContainer}>
         <Input
