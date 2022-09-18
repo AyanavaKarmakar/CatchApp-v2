@@ -36,14 +36,18 @@ export const HomeScreen = (props: Props) => {
     navigation.navigate('ADDCHAT')
   }
 
-  /**
-   * @see https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signout
-   */
-  const signOut = () => {
-    auth.signOut().then(() => {
-      navigation.replace('LOGIN')
-    })
+  const handleProfileEdit = () => {
+    navigation.navigate('EDITPROFILE')
   }
+
+  // /**
+  //  * @see https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signout
+  //  */
+  // const signOut = () => {
+  //   auth.signOut().then(() => {
+  //     navigation.replace('LOGIN')
+  //   })
+  // }
 
   /**
    * @see https://reactnavigation.org/docs/navigation-prop#setoptions
@@ -56,7 +60,7 @@ export const HomeScreen = (props: Props) => {
       headerTitleAlign: 'center',
       headerLeft: () => (
         <View>
-          <TouchableOpacity activeOpacity={0.5} onPress={signOut}>
+          <TouchableOpacity activeOpacity={0.5} onPress={handleProfileEdit}>
             <Avatar rounded source={{ uri: auth?.currentUser?.photoURL } as ImageSourcePropType} />
           </TouchableOpacity>
         </View>
