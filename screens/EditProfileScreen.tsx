@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, KeyboardAvoidingView, View } from 'react-native'
 import { NativeRootStackParamList } from '../App'
 import { auth } from '../Firebase'
+import { updatePassword } from 'firebase/auth'
 
 /**
  * @see https://reactnavigation.org/docs/typescript/#type-checking-screens
@@ -21,7 +22,6 @@ export const EditProfileScreen = (props: Props) => {
     auth.currentUser?.photoURL,
   )
   const [newPassword, setNewPassword] = useState<string>()
-  const [oldPassword, setOldPassword] = useState<string>()
 
   /**
    * @see https://reactnavigation.org/docs/navigation-prop#setoptions
@@ -45,7 +45,32 @@ export const EditProfileScreen = (props: Props) => {
   }
 
   const handleProfileUpdate = () => {
-    return
+    const user = auth.currentUser
+    
+  }
+
+  /**
+   * @see https://stackoverflow.com/a/53981399/18893631
+   */
+  const handlePasswordUpdate = async () => {
+    const user = auth.currentUser
+    if (
+      user !== null &&
+      user !== undefined &&
+      newPassword !== null &&
+      newPassword !== undefined &&
+      newPassword !== '' &&
+      newPassword !== ' '
+    ) {
+      try {
+        await updatePassword(user, newPassword)
+        alert('Password Updated!')
+        navigation.goBack()
+      } catch (error) {
+        alert(error)
+      }
+    }
+    setNewPassword('')
   }
 
   return (
@@ -58,6 +83,7 @@ export const EditProfileScreen = (props: Props) => {
         <Input
           inputStyle={{ color: '#E0FFFF', textAlign: 'center', fontSize: 25 }}
           placeholder='Edit Display Name'
+          placeholderTextColor='#E0FFFF'
           textContentType='name'
           value={newDisplayName ? newDisplayName : ''}
           onChangeText={(text) => setNewDisplayName(text)}
@@ -65,30 +91,37 @@ export const EditProfileScreen = (props: Props) => {
         <Input
           inputStyle={{ color: '#E0FFFF' }}
           placeholder='Edit Display Image URL'
+          placeholderTextColor='#E0FFFF'
           textContentType='URL'
           value={newDisplayImageURL ? newDisplayImageURL : ''}
           onChangeText={(text) => setNewDisplayImageURL(text)}
+          onSubmitEditing={handleProfileUpdate}
         />
         <Input
-          inputStyle={{ color: '#EOFFFF' }}
-          placeholder='(Optional) Set New Password'
+          inputStyle={{ color: '#EOFFFF', backgroundColor: 'darkgrey', textAlign: 'center' }}
+          placeholder='Set New Password'
+          placeholderTextColor='#E0FFFF'
           textContentType='password'
-          value={newPassword}
+          value={newPassword ? newPassword : ''}
           onChangeText={(text) => setNewPassword(text)}
           secureTextEntry
         />
-        <Input
-          inputStyle={{ color: '#E0FFFF' }}
-          placeholder='(Required) Confirm Password'
-          textContentType='password'
-          value={oldPassword}
-          onChangeText={(text) => setOldPassword(text)}
-          secureTextEntry
-          onSubmitEditing={handleProfileUpdate}
-        />
       </View>
-      <Button containerStyle={styles.button} type='outline' onPress={handleProfileUpdate}>
+      <Button
+        disabled={!newDisplayName || !newDisplayImageURL}
+        containerStyle={styles.button}
+        type='outline'
+        onPress={handleProfileUpdate}
+      >
         Update Profile
+      </Button>
+      <Button
+        color='warning'
+        disabled={!newPassword}
+        containerStyle={styles.button}
+        onPress={handlePasswordUpdate}
+      >
+        Update Password
       </Button>
       <Button containerStyle={styles.button} color='error' onPress={handleLogout}>
         Log Out
@@ -110,6 +143,6 @@ const styles = StyleSheet.create({
   },
   button: {
     width: 300,
-    marginTop: 10,
+    marginTop: 15,
   },
 })
