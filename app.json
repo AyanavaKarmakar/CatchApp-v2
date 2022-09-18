@@ -2,7 +2,7 @@
   "expo": {
     "name": "Catchapp v2.0.1",
     "slug": "Catchapp",
-    "version": "2.0.1",
+    "version": "2.2.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
