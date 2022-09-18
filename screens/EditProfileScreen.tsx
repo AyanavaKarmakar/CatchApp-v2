@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, KeyboardAvoidingView, View } from 'react-native'
 import { NativeRootStackParamList } from '../App'
 import { auth } from '../Firebase'
-import { updatePassword } from 'firebase/auth'
+import { updatePassword, updateProfile } from 'firebase/auth'
 
 /**
  * @see https://reactnavigation.org/docs/typescript/#type-checking-screens
@@ -44,13 +44,25 @@ export const EditProfileScreen = (props: Props) => {
     })
   }
 
-  const handleProfileUpdate = () => {
+  /**
+   * Updates user cedentials and goes back to previous screen
+   */
+  const handleProfileUpdate = async () => {
     const user = auth.currentUser
-    
+    if (user !== null && user !== undefined) {
+      try {
+        await updateProfile(user, { displayName: newDisplayName, photoURL: newDisplayImageURL })
+        alert('Credentails Updated!')
+        navigation.goBack()
+      } catch (error) {
+        alert(error)
+      }
+    }
   }
 
   /**
    * @see https://stackoverflow.com/a/53981399/18893631
+   * Updates user's password and goes back to previous screen
    */
   const handlePasswordUpdate = async () => {
     const user = auth.currentUser
