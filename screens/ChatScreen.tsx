@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
+  ImageSourcePropType,
 } from 'react-native'
 import { NativeRootStackParamList } from '../App'
 import { StatusBar } from 'expo-status-bar'
@@ -127,7 +128,7 @@ export const ChatScreen = (props: Props) => {
                       rounded
                       containerStyle={styles.receiverAvatar}
                       size={30}
-                      source={{ uri: message.data.photoURL }}
+                      source={{ uri: message.data.photoURL } as ImageSourcePropType}
                     />
                     <Text style={styles.receiverText}>{message.data.message}</Text>
                   </View>
@@ -137,7 +138,7 @@ export const ChatScreen = (props: Props) => {
                       rounded
                       containerStyle={styles.senderAvatar}
                       size={30}
-                      source={{ uri: message.data.photoURL }}
+                      source={{ uri: message.data.photoURL } as ImageSourcePropType}
                     />
                     <Text style={styles.senderText}>{message.data.message}</Text>
                     <Text style={styles.senderName}>

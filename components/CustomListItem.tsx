@@ -1,7 +1,7 @@
 import { ListItem, Avatar } from '@rneui/themed'
 import { collection, doc, DocumentData, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { useState, useEffect } from 'react'
-import { StyleSheet } from 'react-native'
+import { ImageSourcePropType, StyleSheet } from 'react-native'
 import { db } from '../Firebase'
 
 interface Props {
@@ -33,9 +33,11 @@ export const CustomListItem = (props: Props) => {
     <ListItem key={id} containerStyle={styles.container} onPress={() => onEnterChat(id, chatName)}>
       <Avatar
         rounded
-        source={{
-          uri: chatMessages?.[0]?.photoURL || placeholderAvatar,
-        }}
+        source={
+          {
+            uri: chatMessages?.[0]?.photoURL || placeholderAvatar,
+          } as ImageSourcePropType
+        }
       />
       <ListItem.Content>
         <ListItem.Title style={styles.title}>{chatName}</ListItem.Title>
