@@ -1,7 +1,7 @@
+import { useState, useLayoutEffect } from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Text, Button, Input } from '@rneui/themed'
 import { StatusBar } from 'expo-status-bar'
-import { useLayoutEffect } from 'react'
 import { StyleSheet, KeyboardAvoidingView, View } from 'react-native'
 import { NativeRootStackParamList } from '../App'
 import { auth } from '../Firebase'
@@ -13,6 +13,10 @@ type Props = NativeStackScreenProps<NativeRootStackParamList, 'EDITPROFILE'>
 
 export const EditProfileScreen = (props: Props) => {
   const { navigation } = props
+
+  const [newDisplayName, setNewDisplayName] = useState<string | null | undefined>(
+    auth.currentUser?.displayName,
+  )
 
   /**
    * @see https://reactnavigation.org/docs/navigation-prop#setoptions
