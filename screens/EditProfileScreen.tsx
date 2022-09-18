@@ -20,6 +20,8 @@ export const EditProfileScreen = (props: Props) => {
   const [newDisplayImageURL, setNewDisplayImageURL] = useState<string | null | undefined>(
     auth.currentUser?.photoURL,
   )
+  const [newPassword, setNewPassword] = useState<string>()
+  const [oldPassword, setOldPassword] = useState<string>()
 
   /**
    * @see https://reactnavigation.org/docs/navigation-prop#setoptions
@@ -54,7 +56,7 @@ export const EditProfileScreen = (props: Props) => {
       </Text>
       <View style={styles.inputContainer}>
         <Input
-          inputStyle={{ color: '#E0FFFF' }}
+          inputStyle={{ color: '#E0FFFF', textAlign: 'center', fontSize: 25 }}
           placeholder='Edit Display Name'
           textContentType='name'
           value={newDisplayName ? newDisplayName : ''}
@@ -71,12 +73,16 @@ export const EditProfileScreen = (props: Props) => {
           inputStyle={{ color: '#EOFFFF' }}
           placeholder='(Optional) Set New Password'
           textContentType='password'
+          value={newPassword}
+          onChangeText={(text) => setNewPassword(text)}
           secureTextEntry
         />
         <Input
           inputStyle={{ color: '#E0FFFF' }}
-          placeholder='Confirm Old Password'
+          placeholder='(Required) Confirm Password'
           textContentType='password'
+          value={oldPassword}
+          onChangeText={(text) => setOldPassword(text)}
           secureTextEntry
           onSubmitEditing={handleProfileUpdate}
         />
