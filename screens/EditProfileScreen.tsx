@@ -7,7 +7,7 @@ import { auth } from '../Firebase'
 /**
  * @see https://reactnavigation.org/docs/typescript/#type-checking-screens
  */
-type Props = NativeStackScreenProps<NativeRootStackParamList, 'HOME'>
+type Props = NativeStackScreenProps<NativeRootStackParamList, 'EDITPROFILE'>
 
 export const EditProfileScreen = (props: Props) => {
   const { navigation } = props
