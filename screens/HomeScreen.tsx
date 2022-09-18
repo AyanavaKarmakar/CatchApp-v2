@@ -40,15 +40,6 @@ export const HomeScreen = (props: Props) => {
     navigation.navigate('EDITPROFILE')
   }
 
-  // /**
-  //  * @see https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signout
-  //  */
-  // const signOut = () => {
-  //   auth.signOut().then(() => {
-  //     navigation.replace('LOGIN')
-  //   })
-  // }
-
   /**
    * @see https://reactnavigation.org/docs/navigation-prop#setoptions
    */

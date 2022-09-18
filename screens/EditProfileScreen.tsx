@@ -1,4 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { Button } from '@rneui/themed'
 import { useLayoutEffect } from 'react'
 import { View, Text } from 'react-native'
 import { NativeRootStackParamList } from '../App'
@@ -24,9 +25,21 @@ export const EditProfileScreen = (props: Props) => {
     })
   }, [navigation])
 
+  /**
+   * @see https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signout
+   */
+  const handleLogout = () => {
+    auth.signOut().then(() => {
+      navigation.replace('LOGIN')
+    })
+  }
+
   return (
     <View>
       <Text>Edit Profile Screen</Text>
+      <Button color='error' onPress={handleLogout}>
+        Log Out
+      </Button>
     </View>
   )
 }
