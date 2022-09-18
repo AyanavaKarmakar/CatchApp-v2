@@ -54,6 +54,8 @@ export const EditProfileScreen = (props: Props) => {
           inputStyle={{ color: '#E0FFFF' }}
           placeholder='Edit Display Name'
           textContentType='name'
+          value={newDisplayName}
+          onChangeText={(text) => setNewDisplayName(text)}
         />
         <Input
           inputStyle={{ color: '#E0FFFF' }}
