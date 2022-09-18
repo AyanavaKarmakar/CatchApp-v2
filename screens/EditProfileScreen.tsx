@@ -17,6 +17,9 @@ export const EditProfileScreen = (props: Props) => {
   const [newDisplayName, setNewDisplayName] = useState<string | null | undefined>(
     auth.currentUser?.displayName,
   )
+  const [newDisplayImageURL, setNewDisplayImageURL] = useState<string | null | undefined>(
+    auth.currentUser?.photoURL,
+  )
 
   /**
    * @see https://reactnavigation.org/docs/navigation-prop#setoptions
@@ -54,13 +57,15 @@ export const EditProfileScreen = (props: Props) => {
           inputStyle={{ color: '#E0FFFF' }}
           placeholder='Edit Display Name'
           textContentType='name'
-          value={newDisplayName}
+          value={newDisplayName ? newDisplayName : ''}
           onChangeText={(text) => setNewDisplayName(text)}
         />
         <Input
           inputStyle={{ color: '#E0FFFF' }}
           placeholder='Edit Display Image URL'
           textContentType='URL'
+          value={newDisplayImageURL ? newDisplayImageURL : ''}
+          onChangeText={(text) => setNewDisplayImageURL(text)}
         />
         <Input
           inputStyle={{ color: '#EOFFFF' }}
