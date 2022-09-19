@@ -49,13 +49,29 @@ export const EditProfileScreen = (props: Props) => {
    */
   const handleProfileUpdate = async () => {
     const user = auth.currentUser
-    if (user !== null && user !== undefined) {
-      try {
-        await updateProfile(user, { displayName: newDisplayName, photoURL: newDisplayImageURL })
-        alert('Credentails Updated!')
-        navigation.goBack()
-      } catch (error) {
-        alert(error)
+
+    if (
+      user !== null &&
+      user !== undefined &&
+      newDisplayName !== null &&
+      newDisplayName !== undefined &&
+      newDisplayName !== '' &&
+      newDisplayName !== ' ' &&
+      newDisplayImageURL !== null &&
+      newDisplayImageURL !== undefined &&
+      newDisplayImageURL !== '' &&
+      newDisplayImageURL !== ' '
+    ) {
+      if (newDisplayName === user.displayName && newDisplayImageURL === user.photoURL) {
+        alert('Please recheck your form again!')
+      } else if (newDisplayName !== user.displayName || newDisplayImageURL !== user.photoURL) {
+        try {
+          await updateProfile(user, { displayName: newDisplayName, photoURL: newDisplayImageURL })
+          alert('Credentails Updated!')
+          navigation.goBack()
+        } catch (error) {
+          alert(error)
+        }
       }
     }
   }
