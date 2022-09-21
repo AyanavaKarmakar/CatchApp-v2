@@ -13,6 +13,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   ImageSourcePropType,
+  Linking,
 } from 'react-native'
 import { NativeRootStackParamList } from '../App'
 import { StatusBar } from 'expo-status-bar'
@@ -130,7 +131,18 @@ export const ChatScreen = (props: Props) => {
                       size={30}
                       source={{ uri: message.data.photoURL } as ImageSourcePropType}
                     />
-                    <Text style={styles.receiverText}>{message.data.message}</Text>
+                    {message.data.message.startsWith('https://') === true ? (
+                      <TouchableOpacity
+                        activeOpacity={0.5}
+                        onPress={() => Linking.openURL(message.data.message)}
+                      >
+                        <Text style={{ ...styles.receiverText, color: 'blue' }}>
+                          {message.data.message}
+                        </Text>
+                      </TouchableOpacity>
+                    ) : (
+                      <Text style={styles.receiverText}>{message.data.message}</Text>
+                    )}
                   </View>
                 ) : (
                   <View key={message.id} style={styles.sender}>
@@ -140,7 +152,18 @@ export const ChatScreen = (props: Props) => {
                       size={30}
                       source={{ uri: message.data.photoURL } as ImageSourcePropType}
                     />
-                    <Text style={styles.senderText}>{message.data.message}</Text>
+                    {message.data.message.startsWith('https://') === true ? (
+                      <TouchableOpacity
+                        activeOpacity={0.5}
+                        onPress={() => Linking.openURL(message.data.message)}
+                      >
+                        <Text style={{ ...styles.senderText, color: 'lightblue' }}>
+                          {message.data.message}
+                        </Text>
+                      </TouchableOpacity>
+                    ) : (
+                      <Text style={styles.senderText}>{message.data.message}</Text>
+                    )}
                     <Text style={styles.senderName}>
                       <Text style={{ color: 'cyan' }}>{message.data.displayName}</Text> |{' '}
                       {message.data.timestamp
