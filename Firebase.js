@@ -6,17 +6,25 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
+import {
+  REACT_APP_FIREBASE_API_KEY,
+  REACT_APP_FIREBASE_AUTH_DOMAIN,
+  REACT_APP_FIREBASE_PROJECT_ID,
+  REACT_APP_FIREBASE_STORAGE_BUCKET,
+  REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  REACT_APP_FIREBASE_APP_ID,
+} from '@env'
 
 /**
  * web app's Firebase configuration
  */
 const firebaseConfig = {
-  apiKey: 'AIzaSyCHVyXsveLBH6o1bnJ31RJ28304rAaUT-E',
-  authDomain: 'signal-clone-af25b.firebaseapp.com',
-  projectId: 'signal-clone-af25b',
-  storageBucket: 'signal-clone-af25b.appspot.com',
-  messagingSenderId: '254420441430',
-  appId: '1:254420441430:web:89edb275fb7961871a5ef7',
+  apiKey: REACT_APP_FIREBASE_API_KEY,
+  authDomain: REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: REACT_APP_FIREBASE_APP_ID,
 }
 
 /**
