@@ -111,6 +111,42 @@ export const ChatScreen = (props: Props) => {
     return unSubscribe
   }, [route])
 
+  /**
+   * Finds index of immediate space in the string
+   * @param temp
+   * @returns spaceIndex
+   */
+  const getSpaceIndex = (temp: string) => {
+    let spaceIndex: number
+
+    for (let i = 0; i < temp.length; i++) {
+      if (temp.charAt(i) === ' ') {
+        spaceIndex = i
+        return spaceIndex
+      }
+    }
+  }
+
+  /**
+   * Extracts link from the string
+   * @param message
+   * @returns link
+   */
+  const getLink = (message: string) => {
+    /**
+     * Slicing strings before the link
+     */
+    const temp = message.slice(message.indexOf('https://'))
+    const spaceIndex = getSpaceIndex(temp)
+
+    /**
+     * Slicing strings after the link
+     */
+    const link = temp.slice(0, spaceIndex)
+
+    return link
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style='light' />
@@ -131,10 +167,10 @@ export const ChatScreen = (props: Props) => {
                       size={30}
                       source={{ uri: message.data.photoURL } as ImageSourcePropType}
                     />
-                    {message.data.message.startsWith('https://') === true ? (
+                    {message.data.message.includes('https://') === true ? (
                       <TouchableOpacity
                         activeOpacity={0.5}
-                        onPress={() => Linking.openURL(message.data.message)}
+                        onPress={() => Linking.openURL(getLink(message.data.message))}
                       >
                         <Text style={{ ...styles.receiverText, color: 'blue' }}>
                           {message.data.message}
@@ -152,10 +188,10 @@ export const ChatScreen = (props: Props) => {
                       size={30}
                       source={{ uri: message.data.photoURL } as ImageSourcePropType}
                     />
-                    {message.data.message.startsWith('https://') === true ? (
+                    {message.data.message.includes('https://') === true ? (
                       <TouchableOpacity
                         activeOpacity={0.5}
-                        onPress={() => Linking.openURL(message.data.message)}
+                        onPress={() => Linking.openURL(getLink(message.data.message))}
                       >
                         <Text style={{ ...styles.senderText, color: 'lightblue' }}>
                           {message.data.message}
